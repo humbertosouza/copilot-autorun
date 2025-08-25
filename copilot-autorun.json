@@ -1,0 +1,37 @@
+{
+  "name": "copilot-autorun",
+  "displayName": "Copilot AutoRun",
+  "publisher": "local",
+  "version": "0.0.1",
+  "engines": { "vscode": "^1.80.0" },
+  "activationEvents": ["onCommand:copilotAutoRun.toggle"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copilotAutoRun.toggle",
+        "title": "Copilot AutoRun: Toggle"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Copilot AutoRun",
+      "properties": {
+        "copilotAutoRun.allowedLanguages": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Language IDs in which auto-run will be allowed (empty = all)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vscode": "^1.1.59"
+  }
+}

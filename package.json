@@ -1,0 +1,119 @@
+{
+  "name": "copilot-autorun",
+  "displayName": "Copilot AutoRun",
+  "description": "Automatically accept and run GitHub Copilot suggestions in terminal",
+  "version": "0.1.0",
+  "publisher": "local",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/local/copilot-autorun.git"
+  },
+  "bugs": {
+    "url": "https://github.com/local/copilot-autorun/issues"
+  },
+  "homepage": "https://github.com/local/copilot-autorun#readme",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "copilot",
+    "automation",
+    "terminal",
+    "productivity"
+  ],
+  "activationEvents": [
+    "onCommand:copilotAutoRun.toggle",
+    "onCommand:copilotAutoRun.enable",
+    "onCommand:copilotAutoRun.disable"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copilotAutoRun.toggle",
+        "title": "Toggle AutoRun",
+        "category": "Copilot AutoRun"
+      },
+      {
+        "command": "copilotAutoRun.enable",
+        "title": "Enable AutoRun",
+        "category": "Copilot AutoRun"
+      },
+      {
+        "command": "copilotAutoRun.disable",
+        "title": "Disable AutoRun",
+        "category": "Copilot AutoRun"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Copilot AutoRun",
+      "properties": {
+        "copilotAutoRun.allowedLanguages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": ["shellscript", "powershell", "batch"],
+          "description": "Language IDs where auto-run will be allowed. Empty array allows all languages."
+        },
+        "copilotAutoRun.debounceDelay": {
+          "type": "number",
+          "default": 400,
+          "minimum": 100,
+          "maximum": 2000,
+          "description": "Delay in milliseconds before triggering auto-run after text changes."
+        },
+        "copilotAutoRun.suggestionDelay": {
+          "type": "number",
+          "default": 200,
+          "minimum": 50,
+          "maximum": 1000,
+          "description": "Delay in milliseconds to wait for suggestions to populate before accepting."
+        },
+        "copilotAutoRun.enableOnStartup": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable auto-run mode when VS Code starts."
+        },
+        "copilotAutoRun.showNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show notifications when enabling/disabling auto-run."
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "copilotAutoRun.toggle",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4",
+    "@vscode/test-electron": "^2.2.0",
+    "vsce": "^2.15.0"
+  }
+}
